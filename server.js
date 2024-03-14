@@ -31,7 +31,7 @@ cloudinary.config({
 });
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-app.use(express.static(path.resolve(__dirname,'./public')))
+app.use(express.static(path.resolve(__dirname,'./client/dist')))
 
 
 //morgan library middleware to log reqs only during dev
@@ -62,7 +62,7 @@ app.use("/api/v1/auth", authRouter);
 
 // point all get routes to the index.html entry point for from end
 app.get('*', (req, res) => {
-  res.sendFile(path).resolve(__dirname,'./public','index.html')
+  res.sendFile(path).resolve(__dirname,'./client/dist','index.html')
 })
 
 
