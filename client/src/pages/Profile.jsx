@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 
 
-export const action = async ({request}) => {
+export const action = (queryClient)=>async ({request}) => {
   console.log('test')
   const formData = await request.formData();
   const file = formData.get("avatar");
@@ -17,7 +17,9 @@ export const action = async ({request}) => {
   }
   try {
     await customFetch.patch("/users/update-user", formData);
+    queryClient.invalidateQueries(['user'])
     toast.success("Profile updated successfully");
+    return redirect('/dashboard')
   } catch (error) {
     toast.error(error?.response?.data?.msg);
   }
